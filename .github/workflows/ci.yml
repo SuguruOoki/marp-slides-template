@@ -21,7 +21,7 @@ jobs:
           echo "# This branch is for deployment only" >> build/README.md
           mv build/slide-deck.html build/index.html
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.4.0
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
