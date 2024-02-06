@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [main]
   pull_request:
-    branches: [ master ]
+    branches: [main]
 
 jobs:
   build:
@@ -21,7 +21,7 @@ jobs:
           echo "# This branch is for deployment only" >> build/README.md
           mv build/slide-deck.html build/index.html
       - name: Deploy
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@v4.4.0
         with:
           branch: gh-pages
