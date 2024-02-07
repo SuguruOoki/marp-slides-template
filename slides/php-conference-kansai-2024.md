@@ -63,15 +63,17 @@ Coding Stoicをテーマに「うるせえコードかけ！」と言いがち�
 
 ---
 
-# 過去の発表がすでにあった・・・
-
----
-
 ![bg 90%](images/php-conference-kansai-2024/past-slides-search.png)
 
 ---
 
 ![bg 90%](images/php-conference-kansai-2024/past-slide-top.png)
+
+---
+
+# 過去の発表がすでにあった・・・
+
+確認してから応募しろ・・・
 
 ---
 
@@ -109,17 +111,11 @@ Coding Stoicをテーマに「うるせえコードかけ！」と言いがち�
 
 ---
 
-### 追うのに使う情報
+### 歴史を追うのに利用する情報源
 
 1. php-srcのGitHubのソースコードなどを見る
 2. [PHP Internals](https://www.php.net/mailing-lists.php) → PHP 開発者が情報を交換するメーリングリストの一つです。PHP 自体の開発に関わる相談が行われています。
 3. museum.php.netでphp-srcのソースコードを見る
-
----
-
-# 実はすでに発表済みのものがあります！
-
-確認してから応募しろ・・・
 
 ---
 
