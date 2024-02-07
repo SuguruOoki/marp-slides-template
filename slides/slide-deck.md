@@ -12,6 +12,14 @@ _paginate: false
 marp: true
 ---
 
+# スー(@suguru_ohki)のスライドのまとめです
+
+---
+
+[PHPの「歴史的な理由」ってなんだ！？](./php-conference-kansai-2024.md)
+
+---
+
 # TUM Marp Slides Template
 
 Chair of Media Technology
