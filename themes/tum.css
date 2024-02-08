@@ -54,5 +54,7 @@ section.invert a {
 
 /* Add "Page" prefix and total page number */
 section::after {
-  content: attr(data-marpit-pagination) ' / ' attr(data-marpit-pagination-total);
+  /* content: attr(data-marpit-pagination) ' / ' attr(data-marpit-pagination-total); */
+  background-image: url('images/x-url.png');
+  background-size: 8%;
 }
