@@ -1,6 +1,6 @@
 ---
-title: Demo
-description: Demo TUM Marp Template
+title: Top
+description: スーのスライドのまとめです
 class: invert
 _class:
   - invert
@@ -12,7 +12,7 @@ _paginate: false
 marp: true
 ---
 
-# スー(@suguru_ohki)のスライドのまとめです
+# スー([@suguru_ohki](https://twitter.com/suguru_ohki))のスライドのまとめです
 
 ---
 

@@ -49,3 +49,7 @@ If you use our template please cite our paper.
     pages = {1--8},
 }
 ```
+
+# Reference
+
+https://zenn.dev/cota_hu/books/marp-beginner-advanced/viewer/create-2
