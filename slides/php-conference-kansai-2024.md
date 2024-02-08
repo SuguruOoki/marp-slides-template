@@ -5,12 +5,21 @@ class: invert
 _class:
   - invert
   - lead
-footer: 2024-02-11 | Suguru Ohki (スー) | PHPの「歴史的な理由」ってなんだ！？
+footer: 2024-02-11 | PHPの「歴史的な理由」ってなんだ！？
 _footer: ""
 paginate: true
 _paginate: false
 marp: true
 ---
+
+<!-- https://qiita.com/takeshisakuma/items/5a61e6eac123d28602fb -->
+# PHPの「歴史的な理由」ってなんだ！？
+
+---
+
+<!-- _class: lead -->
+<!-- _footer: "" -->
+<!-- _paginate: "" -->
 
 # 自己紹介
 
@@ -18,16 +27,16 @@ marp: true
 
 ![bg left:30% 80%](images/profile_up_minify.png)
 
-## 所属
+### 所属
 
 株式会社TechBowl
 
-## 何やってる？
+### 何やってる？
 
 「TechTrain」というサービスを作っています！
 反復横跳びし続けている何でも屋さん(Laravel, Next.js, AWS, etc...)
 
-## 趣味
+### 趣味
  - お酒(よく溺れる)
  - サウナ
  - 読書
@@ -36,6 +45,7 @@ marp: true
 
 ## TechTrain
 
+![bg fit left:30% 80%](images/techtrain-logo.jpg)
 エンジニア教育+Directスカウトのサービス。
 Coding Stoicをテーマに「うるせえコードかけ！」と言いがちなメンターが多めのエンジニアを育てるためのサービスです。
 
@@ -67,7 +77,7 @@ Coding Stoicをテーマに「うるせえコードかけ！」と言いがち�
 
 ---
 
-![bg 90%](images/php-conference-kansai-2024/past-slide-top.png)
+![bg 80%](images/php-conference-kansai-2024/past-slide-top.png)
 
 ---
 
@@ -101,56 +111,41 @@ Coding Stoicをテーマに「うるせえコードかけ！」と言いがち�
 
 ---
 
-## 前提
-
-2024/02時点でのphp.netの情報を元とします。
+# [GitHubで再度「英語で」検索](https://github.com/search?q=repo%3Aphp%2Fdoc-en%20historical%20reason&type=code)をしてみました
 
 ---
 
-### どうやって追うのか？
+# ん？
+
+
+![bg 40% 55%](images/php-conference-kansai-2024/snmpwalkoid.png)
 
 ---
 
-### 歴史を追うのに利用する情報源
+# 日本語ドキュメントの検索では引っかからないやつ！
 
-1. php-srcのGitHubのソースコードなどを見る
+---
+
+# これを追うことにします！
+
+---
+
+# どうやって追うのか？
+
+---
+
+# 最近のものであれば、PHPのRFCでの議論をみる
+
+参考: https://php-rfc-watch.beberlei.de
+
+---
+
+## 歴史を追うのに利用する情報源
+
+1. php-srcのGitHubのソースコードのcommitを遡って見る
 2. [PHP Internals](https://www.php.net/mailing-lists.php) → PHP 開発者が情報を交換するメーリングリストの一つです。PHP 自体の開発に関わる相談が行われています。
 3. museum.php.netでphp-srcのソースコードを見る
-
----
-
-https://www.slideshare.net/ebihara/php-32340906
-↑こちらにurlencode,rawurlencode,gettype,Pharファイルフォーマットなどについての記述がすでにある😭
-
----
-
-# これはミスったのでは？
-
----
-
-https://github.com/search?q=repo%3Aphp%2Fdoc-ja%20%E6%AD%B4%E5%8F%B2%E7%9A%84%E3%81%AA%E7%90%86%E7%94%B1&type=code
-
----
-
-|すでに解説済みか？|関数名|公式ドキュメントリンク|補足|
-|:--|:--|:--|:--|
-|☑️|snmpwalkoid|https://www.php.net/manual/ja/function.snmpwalkoid.php|snmprealwalk()が移行先として推奨されている。歴史的な理由の主なものとしては下位互換のため|
-|☑️|snmpwalk|https://www.php.net/manual/ja/function.snmpwalk.php|snmprealwalk()が移行先として推奨されている。歴史的な理由の主なものとしては下位互換のため|
-|○|get_debug_type|https://www.php.net/manual/ja/function.get-debug-type.php|PHP8.0から追加されたもの。gettypeについての歴史的な理由により、書いてあるだけなので、対象外となる。gettypeで解説されている。|
-|○|gettype|https://www.php.net/manual/ja/function.gettype.php||
-|○|urlencode|https://www.php.net/manual/ja/function.urlencode||
-|○|Pharファイルフォーマット|https://www.php.net/manual/ja/phar.fileformat.phar.php|Phar マニフェストは高度に最適化された書式で、 ファイル単位で圧縮やパーミッションの情報を指定することができ、 さらにファイルのユーザーやグループなど、独自に定義したメタデータも含めることができます。 1 バイトをこえる大きさの値はリトルエンディアン形式のバイト順で保存されます。 ただし API バージョンだけは例外です。これは 3 ニブルのデータですが、 歴史的な理由によりビッグエンディアン形式のバイト順で保存されます。|
-|○|implode|https://www.php.net/manual/ja/migration74.deprecated.php|引数の順序がPHP7.4でdeprecatedとされて変更された|
-|○|rawurlencode|https://www.php.net/manual/ja/function.rawurlencode.php||
-
-
----
-
-## どこから歴史を辿るのか？
-
-PHPのRFCでの議論をみる
-
-https://php-rfc-watch.beberlei.de
+4. SVNのPHPを見る
 
 ---
 
@@ -394,6 +389,20 @@ http://www.ujp.jp/modules/tech_regist2/?HomeBrew%2Fsvn%2FInstall%2FYosemite
 ---
 
 # 歴史的経緯の走り書き
+
+---
+
+|すでに解説済みか？|関数名|公式ドキュメントリンク|補足|
+|:--|:--|:--|:--|
+|️|snmpwalkoid|https://www.php.net/manual/ja/function.snmpwalkoid.php|snmprealwalk()が移行先として推奨されている。歴史的な理由の主なものとしては下位互換のため|
+|️|snmpwalk|https://www.php.net/manual/ja/function.snmpwalk.php|snmprealwalk()が移行先として推奨されている。歴史的な理由の主なものとしては下位互換のため|
+|○|get_debug_type|https://www.php.net/manual/ja/function.get-debug-type.php|PHP8.0から追加されたもの。gettypeについての歴史的な理由により、書いてあるだけなので、対象外となる。gettypeで解説されている。|
+|○|gettype|https://www.php.net/manual/ja/function.gettype.php||
+|○|urlencode|https://www.php.net/manual/ja/function.urlencode||
+|○|Pharファイルフォーマット|https://www.php.net/manual/ja/phar.fileformat.phar.php|Phar マニフェストは高度に最適化された書式で、 ファイル単位で圧縮やパーミッションの情報を指定することができ、 さらにファイルのユーザーやグループなど、独自に定義したメタデータも含めることができます。 1 バイトをこえる大きさの値はリトルエンディアン形式のバイト順で保存されます。 ただし API バージョンだけは例外です。これは 3 ニブルのデータですが、 歴史的な理由によりビッグエンディアン形式のバイト順で保存されます。|
+|○|implode|https://www.php.net/manual/ja/migration74.deprecated.php|引数の順序がPHP7.4でdeprecatedとされて変更された|
+|○|rawurlencode|https://www.php.net/manual/ja/function.rawurlencode.php||
+
 
 ---
 
