@@ -5,16 +5,16 @@
 @import 'default';
 
 section {
-  background-color: #fff;
-  color: #000;
-  background-image: url('images/TUM_Logo_blau_rgb_s.svg');
+  background-color: #393C41;
+  /* background-image: url('images/background.png'); */
+  color: #FCFDF2;
   background-repeat: no-repeat;
-  background-position: right 40px top 40px;
+  background-position: right 16px top 16px;
   background-size: 8%;
 }
 
 section.lead {
-  background-image: url('images/TUM_Uhrenturm.png');
+  /* background-image: url('images/profile_up_minify.png'); */
   background-position: right;
   background-size: 45%;
 }
@@ -23,23 +23,23 @@ section h1,
 section a,
 section footer,
 section::after {
-  color: #0065bd;
+  color: #FCFDF2;
 }
 
 section.invert {
-  background-color: #003359;
-  color: #fff;
-  background-image: url('images/TUM_Logo_weiss_rgb_s.svg');
+  background-color: #393C41;
+  color: #FCFDF2;
+  background-image: url('images/techtrain-logo.jpg');
 }
 
 section.lead.invert {
-  background-image: url('images/TUM_Uhrenturm_w.png');
+  background-image: url('images/techtrain-logo.png');
 }
 
 section.invert h1,
 section.invert footer,
 section.invert::after {
-  color: #fff;
+  color: #FCFDF2;
 }
 
 section.invert a {
