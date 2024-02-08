@@ -3,9 +3,11 @@
 /** https://github.com/marp-team/marp-core/blob/main/themes/README.md */
 
 @import 'default';
+@import url('https://fonts.googleapis.com/css3?family=Montserrat:ital@1&display=swap');
 
 section {
   background-color: #393C41;
+  font-family: 'Montserrat', sans-serif;
   /* background-image: url('images/background.png'); */
   color: #FCFDF2;
   background-repeat: no-repeat;
@@ -36,6 +38,10 @@ section.lead.invert {
   background-image: url('images/techtrain-logo.png');
 }
 
+footer {
+  position: absolute;
+}
+
 section.invert h1,
 section.invert footer,
 section.invert::after {
@@ -43,7 +49,7 @@ section.invert::after {
 }
 
 section.invert a {
-  color: #e37222;
+  color: #4DD0E1;
 }
 
 /* Add "Page" prefix and total page number */
