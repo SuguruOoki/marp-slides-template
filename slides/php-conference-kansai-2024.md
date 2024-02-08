@@ -7,7 +7,7 @@ _class:
   - lead
 footer: 2024-02-11 | PHPの「歴史的な理由」ってなんだ！？
 _footer: ""
-paginate: true
+paginate: false
 _paginate: false
 marp: true
 ---
@@ -107,7 +107,11 @@ Coding Stoicをテーマに「うるせえコードかけ！」と言いがち�
 
 ---
 
-# オワタ＼(^o^)／・終・〆
+# 過去の発表と被ってないものは1つだけ！？(ユーザー定義関数)
+
+---
+
+# 他にないのか・・・！？
 
 ---
 
@@ -126,44 +130,97 @@ Coding Stoicをテーマに「うるせえコードかけ！」と言いがち�
 
 ---
 
-# これを追うことにします！
+# 一安心ということで、次の2つを遡っていきます！
 
 ---
 
-# どうやって追うのか？
+## 1. ユーザー定義関数
+## 2. snmpwalkoid
 
 ---
 
-# 最近のものであれば、PHPのRFCでの議論をみる
-
-参考: https://php-rfc-watch.beberlei.de
+# どうやって歴史を追うのか？について
 
 ---
 
 ## 歴史を追うのに利用する情報源
 
-1. php-srcのGitHubのソースコードのcommitを遡って見る
-2. [PHP Internals](https://www.php.net/mailing-lists.php) → PHP 開発者が情報を交換するメーリングリストの一つです。PHP 自体の開発に関わる相談が行われています。
-3. museum.php.netでphp-srcのソースコードを見る
-4. SVNのPHPを見る
+1. [PHPのRFCの履歴(PHP5.3~有効)](https://wiki.php.net/rfc)を読む
+2. [php-srcのGitHubのソースコード](https://github.com/php/php-src)のcommitを遡って見る(PHP4.0~有効)
+3. [PHP Internals](https://www.php.net/mailing-lists.php)(PHP3.0~から有効)
+4. [museum.php.net](https://museum.php.net)でphp-srcのソースコードをダウンロードして見る(PHP1~)
 
 ---
 
-# 調べた関数
+# それでは早速追っていきましょう。
 
 ---
 
-## snmpwalkoid
-
-snmpwalkoid() 関数は、hostname で指定した SNMP エージェントから すべてのオブジェクト ID とその値を読みこむために使用します。
-3.0.9で入ったっぽい？(3.0.8が見当たらないので多分そう)
+## [1. 内部（ビルトイン）関数](https://www.php.net/manual/ja/functions.internal.php#:~:text=For%20historical%20reasons%2C%20PHP%20allows,as%20of%20PHP%208.1.0)
 
 ---
 
-## いつからある？
+![bg 90%](images/php-conference-kansai-2024/user-function-historical-reason.png)
 
-PHP3系から。
-php.netのドキュメントにはPHP4からといったように見える書き方がなされているが、これはgitなどを使った管理が4系からなされている影響であり、実際には3系から存在している。
+---
+
+> Historically, the reason for this discrepancy is that internal functions have supported a concept of scalar types (bool, int, float, string) long before they were introduced for user-defined functions in PHP 7.0, and the existing implementation silently accepted null values. For the new scalar type declarations introduced in PHP 7.0 an explicit choice was made to not accept null values to non-nullable arguments, but changing the existing behavior of internal functions would have been too disruptive at the time.
+
+[PHP RFC: Deprecate passing null to non-nullable arguments of internal functions](https://wiki.php.net/rfc/deprecate_null_to_scalar_internal_arg)
+
+---
+
+> 歴史的に見ると、この不一致の原因は、内部関数が PHP 7.0 でユーザー定義関数に導入されるずっと前から スカラー型 (bool, int, float, string) の概念をサポートしており、 既存の実装では null 値を黙って受け取っていたからです。PHP 7.0 で導入された新しいスカラー型の宣言では、null 値を受け取らないようにすることが明示的に選択されましたが、 内部関数の既存の振る舞いを変更することは、その時点ではあまりに破壊的でした。この RFC では、PHP 8.1 で非推奨の警告を発生させ、内部関数の挙動を同期させることを提案しています。
+
+[PHP RFC: Deprecate passing null to non-nullable arguments of internal functions](https://wiki.php.net/rfc/deprecate_null_to_scalar_internal_arg)
+
+---
+
+|種類|nullに対する対応|
+|:--|---|
+|ユーザー定義関数|PHP7.0から導入され、nullを受け取る場合とそうではない場合が最初から区別されていた|
+|内部関数|PHP7.0はるか以前からnullを黙って受け取っていた|
+
+知っての通り、PHP8.1からは、内部関数もstrictモードの際には、ユーザー定義関数と同じように明示されているnullableの引数以外は、nullを受け取ることができなくなっています。
+
+---
+
+# ちなみにscalarというワードがいつからあるのか？を遡ってみると
+
+---
+
+
+![bg 80%](images/php-conference-kansai-2024/first-scalar.png)
+
+---
+
+# [1998年！](https://marc.info/?l=php-internals&m=90222483131759&w=2)
+
+---
+
+# これは確かに歴史的な理由ですね・・・。
+
+---
+
+## どのバージョンからなぜnullが暗黙的に受け取られていたのか？については、遡ってみたものの判明せず、迷宮入りでした・・・
+
+力及ばずごめんなさい・・・
+
+---
+
+# それでは2つ目。
+
+---
+
+## [2. snmpwalkoid](https://www.php.net/manual/en/function.snmpwalkoid)
+
+---
+
+# そもそも見たことがない関数では・・・。
+
+---
+
+# 見たことがある方いらっしゃいますかー！
 
 ---
 
@@ -226,16 +283,74 @@ https://www.php.net/manual/ja/intro.snmp.php
 
 ここからはいよいよ歴史的な経緯に入っていく
 
----
-
-PHP4から存在しているように見えるが、実はFake・・・！
-PHP2系？から存在する
-
-スクショを入れる。PHP4の表示
+## いつからある？
 
 ---
 
-スクショを入れる。PHP2系の実装のスクショ
+![bg 90%](images/php-conference-kansai-2024/snmpwalkoid-documentation.png)
+
+---
+
+# PHP4系からだと思うじゃないですか・・・。
+
+---
+
+# PHP3.0.8 ~
+
+php.netのドキュメントにはPHP4からといったように見える書き方がなされているが、これはgitなどを使ったドキュメントとの連携の管理が4系からなされている影響であり、実際には3系から存在している。
+
+---
+
+# 該当の歴史的理由が現在の状態になったところを見てみる
+
+---
+
+[[PHP-DEV] CVS update: php3/doc/functions](https://marc.info/?l=php-internals&m=92736193313414&w=2)
+
+---
+
+色々議論があるのですが、まとめると
+
+---
+
+1. PHP3.0.8へ入れるため、snmprealwalkという関数が実装される(1999-04-03 2:19:43)
+2. PHP3.0.8リリース前にMike Jacksonさんからsnmprealwalkというのは、適切な名前ではない。snmpoidwalkかsnmpwalkoidかに変更してはどうかという提案。下位互換性のためにsnmpwalkoidとsnmprealwalkの動作は同じにするよ！snmpwalkなどについても考慮するよ！ポリシー的に適切かわからないけどね！(1999-05-21 13:42:07)
+3. [Rasmus Lerdorfさんからいいね！その変更進めようぜ！PHP3.0.8に混ぜてリリースしちゃおう！](https://marc.info/?l=php-internals&m=92733157300339&w=2)という返信がある(1999-05-22 0:16:23)
+4. このあと実装が行われた(1999-05-22)
+
+---
+
+# わずか1ヶ月半くらいが歴史的な理由・・・！w
+
+---
+
+# まとめ
+
+|種類|歴史的な理由の内容|
+|:--|---|
+|ユーザー定義関数|内部関数との動作の差分を入れるための対応が要因|
+|snmpwalkoid|1ヶ月半くらいで提案をサクサク入れたことが発端だったようだ・・・w|
+
+---
+
+# ご静聴ありがとうございました！
+
+## 今日は懇親会にはほとんど出ないので、懇親会前でもいるうちに話しかけてくれると大喜びします！！！
+
+---
+
+# ここからは余談や参考資料について載せていく！
+
+---
+
+* snmprealwalkについての批判and提案 From Mike Jackson
+  * 1999-05-21 13:42:07
+  * https://marc.info/?l=php-internals&m=92733157300339&w=2 の前のメッセらしい。
+  * snmprealwalkは、適切な名前ではない。snmpoidwalkかsnmpwalkoidかに変更してはどうか？
+    * ドキュメントもまだ十分ではない状態だし、変更するならいまだ！
+      * `his is a policy decision though, and I don't know if this is approporiate, so for the time being I'm implementing both snmpwalkoid() and snmprealwalk() to both be identical.` → ただし、これはポリシー上の決定であり、これが適切かどうかはわかりません。そのため、当面は snmpwalkoid() と snmprealwalk() を両方とも同一になるように実装します。
+      * これが歴史的な経緯
+    * https://marc.info/?l=php-internals&m=92733157300339&w=2
 
 ---
 
@@ -256,13 +371,6 @@ https://marc.info/?l=php-internals&m=90222493031994&w=2
 
 ---
 
-### snmpwalkoidの最初のMLは1999年!
-
-https://marc.info/?l=php-internals&w=2&r=6&s=snmpwalkoid&q=b
-https://marc.info/?l=php-internals&m=92733157300339&w=2
-
----
-
 * 最初にsnmpgetとsnmpwalkが存在していた
 * snmprealwalkが実装された
   * 1999-04-03に実装
@@ -272,6 +380,9 @@ https://marc.info/?l=php-internals&m=92733157300339&w=2
     * https://marc.info/?l=php-internals&m=92310736920527&w=4
       * 歴史的な理由によりというドキュメントがこのURLで追加されたことを確認した
         * `The existence of snmprealwalk() and snmpwalk() has historical reasons. Both functions are provided for backward compatibility.`
+
+---
+
 	* snmp
       * https://marc.info/?l=php-internals&m=92312533926915&w=4 でドキュメントの修正も入っている
   * oidのツリーに沿ってwalkする。連想配列を返す。
@@ -279,6 +390,9 @@ https://marc.info/?l=php-internals&m=92733157300339&w=2
   * バグが指摘されている
     * 1999-04-05 18:34
     * https://marc.info/?l=php-internals&m=92333749125885&w=4
+
+---
+
 * PHP3.0.8におけるsnmprealwalkの追加が取り消されている
   * https://marc.info/?l=php-internals&m=92680821807363&w=2
   * https://marc.info/?l=php-internals&m=92706210107003&w=2
@@ -311,8 +425,15 @@ https://marc.info/?l=php-internals&m=92733157300339&w=2
 * snmpwalkoid(), snmp_get_quickprint(), and snmp_set_quick_print()が追加
   * 1999-05-22 7:03:21
   * https://marc.info/?l=php-internals&m=92735955712618&w=2
+
+---
+
+
 * Stig?3.0.8の状態はどうなってる？リリースされるのか？という問い合わせをしている
   * https://marc.info/?l=php-internals&m=92733244900971&w=2
+
+---
+
 * snmpwalkoidの追加+snmprealwalkが一時的に削除される(By Mike Jackson)
   * 1999-05-22
   * `st = 3; /* This is temporary until snmprealwalk() is removed */`
@@ -335,6 +456,9 @@ https://marc.info/?l=php-internals&m=92733157300339&w=2
   * 1999-06-30 19:26
   * https://marc.info/?l=php-internals&m=93077078028154&w=2
   * `Fixes pointed out by #1636, and a little bit of tabification.`
+
+---
+
 * snmpset()が追加される
   * 1999-07-11 20:25
   * https://marc.info/?l=php-internals&m=93173887515673&w=2
@@ -357,16 +481,6 @@ https://marc.info/?l=php-internals&m=128501207513342&w=2
 > snmp_walkoid is now an alias for snmp_realwalk. (Sterling)
 
 ここでsnmp_realwalkへ修正されている
-
----
-
-# ご静聴ありがとうございました！
-
-## 今日は懇親会には出ないので、いるうちに話しかけてくれると大喜びします！！！
-
----
-
-# ここからは余談や参考資料について載せていく！
 
 ---
 
@@ -411,6 +525,8 @@ http://www.ujp.jp/modules/tech_regist2/?HomeBrew%2Fsvn%2FInstall%2FYosemite
 https://marc.info/?l=php-internals&w=2&r=6&s=snmpwalkoid&q=b
 https://marc.info/?l=php-internals&m=92733157300339&w=2
 
+---
+
 * 最初にsnmpgetとsnmpwalkが存在していた
 * snmprealwalkが実装された
   * 1999-04-03に実装
@@ -419,15 +535,24 @@ https://marc.info/?l=php-internals&m=92733157300339&w=2
   * バグが指摘されている
     * 1999-04-05 18:34
     * https://marc.info/?l=php-internals&m=92333749125885&w=4
+
+---
+
 * この時点のドキュメントですでに歴史的理由が追加されているw
   * PHP3.0.8のリリース前の状態
   * https://marc.info/?l=php-internals&m=92310736920527&w=2
+
+---
+
 * snmp3_walk()が関数として追加された(多分)
   * php3_snmpwalkが追加されているのを確認している
     * こちらでsnmpwalkが後から入れ替えられている
   * 1998-07-03
   * https://marc.info/?l=php-internals&m=90222493031994&w=2
   * ただし、これよりも前に実際の処理は追加されており、PHP3.0.1を確認すると、その時点で、snmpgetとsnmpwalkは存在している。`snmp.c,v 1.20 1998/11/03 15:52:33 rasmus`というコメントもあるので、v1.20からある。1系のコードはあまりちゃんとのこっていないので、これ以上の情報はない。2.0系では、phpsnmpwalkという原型となったものはすでにありそう。
+
+---
+
 * snmprealwalk()追加された???
   * 1999-04-03に追加された
   * https://marc.info/?l=php-internals&w=2&r=2&s=snmprealwalk&q=b
@@ -438,6 +563,9 @@ https://marc.info/?l=php-internals&m=92733157300339&w=2
         * `The existence of snmprealwalk() and snmpwalk() has historical reasons. Both functions are provided for backward compatibility.`
 	* snmp
       * https://marc.info/?l=php-internals&m=92312533926915&w=4 でドキュメントの修正も入っている
+
+---
+
 * PHP3.0.8におけるsnmprealwalkの追加が取り消されている
   * https://marc.info/?l=php-internals&m=92680821807363&w=2
   * https://marc.info/?l=php-internals&m=92706210107003&w=2
@@ -446,6 +574,8 @@ https://marc.info/?l=php-internals&m=92733157300339&w=2
     * https://marc.info/?l=php-internals&m=92706265907865&w=2
       * 1999-05-18 17:35:13
       * バグが修正されて、改めて、3.0.8に追加されることになった
+---
+
 * snmprealwalkについての批判and提案 From Mike Jackson
   * 1999-05-21 13:42:07
   * https://marc.info/?l=php-internals&m=92733157300339&w=2 の前のメッセらしい。
@@ -454,16 +584,25 @@ https://marc.info/?l=php-internals&m=92733157300339&w=2
       * `his is a policy decision though, and I don't know if this is approporiate, so for the time being I'm implementing both snmpwalkoid() and snmprealwalk() to both be identical.` → ただし、これはポリシー上の決定であり、これが適切かどうかはわかりません。そのため、当面は snmpwalkoid() と snmprealwalk() を両方とも同一になるように実装します。
       * これが歴史的な経緯
     * https://marc.info/?l=php-internals&m=92733157300339&w=2
+
+---
+
 * snmprealwalkについての批判and提案に対する返答 from Rasmus Lerdorf
   * 1999-05-22 0:16:23
   * https://marc.info/?l=php-internals&m=92733157300339&w=2
   * サマリーは完璧だし、全面的に提案に同意する
   * snmprealwalk()はマジで面白い関数名はまだリリースしてねえ。3.0.8でリリースされるはずだ。今が変える良いチャンスだと思ってるぜ！->なのにそのままリリースされてるぜ！w
+
+---
+
 * snmpwalkoid(), snmp_get_quickprint(), and snmp_set_quick_print()が追加
   * 1999-05-22 7:03:21
   * https://marc.info/?l=php-internals&m=92735955712618&w=2
 * Stig?3.0.8の状態はどうなってる？リリースされるのか？
   * https://marc.info/?l=php-internals&m=92733244900971&w=2
+
+---
+
 * snmpwalkoidの追加+snmprealwalkが一時的に削除される(By Mike Jackson)
   * 1999-05-22
   * `st = 3; /* This is temporary until snmprealwalk() is removed */`
@@ -475,18 +614,24 @@ https://marc.info/?l=php-internals&m=92733157300339&w=2
   * https://marc.info/?l=php-internals&m=92736193313414&w=2
     * ドキュメントにsnmpwalkoid()の追加
     * ドキュメントからsnmprealwalk()の削除
+
+---
+
 * PHP3.0.8リリース
   * 1999-05-22 21:10
   * https://marc.info/?l=php-internals&m=92740688905388&w=2
   * snmprealwalk()(Sascha Schumannが実装)は追加されたままリリースw
+
+---
+
 * snmprealwalkのバグ修正が入る？ from jim
   * 1999-06-30 19:26
   * https://marc.info/?l=php-internals&m=93077078028154&w=2
   * `Fixes pointed out by #1636, and a little bit of tabification.`
+
+---
+
 * snmpset()が追加される
   * 1999-07-11 20:25
   * https://marc.info/?l=php-internals&m=93173887515673&w=2
   * `Added int snmpset(string host, string community, string object_id, string type, mixed value [, int timeout [, int retries]]), which is a function that will set the value associated with an OID on the given host and community. On lines 352, 360, 368, and 376, "return" (lowercase) was removed because SGI's compiler on IRIX6.5 considered a return of a value in a void function to be an error.`
-
-
----
