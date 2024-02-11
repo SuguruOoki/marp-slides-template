@@ -16,7 +16,7 @@ marp: true
 
 ---
 
-[PHPの「歴史的な理由」ってなんだ！？](./php-conference-kansai-2024.md)
+[PHPの「歴史的な理由」ってなんだ！？](./php-conference-kansai-2024)
 
 ---
 
