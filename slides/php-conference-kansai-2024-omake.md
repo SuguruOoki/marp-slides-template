@@ -57,6 +57,19 @@ Coding Stoicをテーマに「うるせえコードかけ！」と言いがち�
 
 ---
 
+# get_debug_type
+
+https://wiki.php.net/rfc/get_debug_type
+https://www.php.net/manual/ja/function.get-debug-type.php
+
+これを見る限りすでに解説済みのget_typeの歴史的な理由について書かれているのなんで対象外となっている
+
+---
+
+
+
+---
+
 * snmprealwalkについての批判and提案 From Mike Jackson
   * 1999-05-21 13:42:07
   * https://marc.info/?l=php-internals&m=92733157300339&w=2 の前のメッセらしい。
@@ -349,3 +362,34 @@ https://marc.info/?l=php-internals&m=92733157300339&w=2
   * 1999-07-11 20:25
   * https://marc.info/?l=php-internals&m=93173887515673&w=2
   * `Added int snmpset(string host, string community, string object_id, string type, mixed value [, int timeout [, int retries]]), which is a function that will set the value associated with an OID on the given host and community. On lines 352, 360, 368, and 376, "return" (lowercase) was removed because SGI's compiler on IRIX6.5 considered a return of a value in a void function to be an error.`
+
+
+---
+
+# 言いたいことを伝える大前提
+
+## ワンビッグメッセージを20文字で語る
+## KISS(簡単、簡潔、感銘)にする
+## 成功話ばかりしない
+## 聞き手視点で考える
+## 未来予想図を見せる
+## 文脈依存をなくす
+## 「正しさ」を振り翳さない
+
+---
+
+# なぜ伝えるのか
+* 4つの質問を明らかにする
+## 聞き手は誰？
+## 聞き手のメリットは？
+## 聞き手になぜ自分が話すのか？
+## 聞き手に何をして欲しいのか？
+# 何を伝えるのか
+* ワンメッセージを軸に構成を考える
+## ワンビッグメッセージ
+### メインポイント
+###
+
+# どう心を掴むのか
+
+---
