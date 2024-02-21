@@ -99,9 +99,8 @@ timezoneやサマータイムとOSやRDBは切っても切り離せない関係�
 
 # 前提
 
-PHPならどうせMySQLの方が多いだろ？と思ってるので、MySQLにします。
-また、OSはLinuxでデプロイされてるケースが多いと考え、Linux前提としておきます。
-(とはいえ、共通する部分もほとんどである・・・)
+1. DB: MySQL 8.x
+2. OS: Linux
 
 ---
 
@@ -126,6 +125,7 @@ PHPならどうせMySQLの方が多いだろ？と思ってるので、MySQLに�
 
 # TODO
 
+- [ ] RFCにおけるタイムゾーンについて調べる
 - [ ] RFCにおけるサマータイムについて調べる
 - [ ] RFCにおけるサマータイムを考えずにやりがちな実装パターンを考える
 - [ ] RFCにおけるサマータイムから逆算した最適な実装パターンを考える
@@ -133,7 +133,139 @@ PHPならどうせMySQLの方が多いだろ？と思ってるので、MySQLに�
 
 ---
 
-# サマータイムの影響を受ける処理
+# タイムゾーンとは
+
+---
+
+# タイムゾーンとは
+
+* 地球上の異なる地域で標準時を基準にした時間帯を指す
+* 地球は24時間で一周するため、世界を24の時間帯に分ける
+* 標準時または協定世界時（UTC）を基準とする
+
+---
+
+# そもそもなぜタイムゾーンが必要とされたのか？
+
+---
+
+# そもそもなぜタイムゾーンが必要とされたのか？
+
+1. 19世紀後半に鉄道の旅や通信技術の進歩に伴って生じた、地域ごとの時刻の違いによる混乱に対処するためだった
+2. タイムゾーンが導入される以前は、各都市や町は太陽の位置を基準にした独自の現地時間を持っていた
+3. そのため、異なる場所でのイベントのスケジュールや調整が困難だった
+
+---
+
+タイムゾーンがどう表現されているのか。についての説明
+
+---
+
+タイムゾーンの説明
+
+---
+
+# タイムゾーンの雰囲気実装
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Models;
+
+final class User extends Model
+{
+    protected $fillable = [
+        'name',
+        'email',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    protected $casts = [
+        'deleted_at' => 'timestamp', // or datetimeとかかもしれない
+    ];
+}
+```
+
+---
+
+# タイムゾーンの雰囲気実装
+
+```php
+<?php
+
+// ↓実際のレスポンス加工のロジック----
+$user = User::find(1);
+$user->deleted_at->format('Y-m-d H:i:s');
+```
+
+---
+
+# タイムゾーンの雰囲気実装
+## 何がダメなのか？
+
+```php
+<?php
+
+// ↓実際のレスポンス加工のロジック----
+$user = User::find(1);
+$user->deleted_at->format('Y-m-d H:i:s'); // ← ここでタイムゾーンの情報が削ぎ落とされている
+// フロントエンドでUTCとして取り扱うためにUTCのための変換を挟む必要が出てくる。非常に面倒。
+// バックエンドで表示する日時をそのまま返すのであればこれで良いかもしれないが日時のズレは避けられない。
+```
+
+---
+
+# 雰囲気実装を抜けるために考慮すべきこと
+
+1. WebサーバーとDBサーバーの時刻とタイムゾーンを考慮する
+  基本的にDBサーバー側の日時を利用し、DBサーバーは、UTCに設定
+2. Webサーバー側で日時を決定して良いパターン
+3. Databaseの日時の取り扱いについて把握する
+  今回は、MySQL
+
+---
+
+```php
+<?php
+
+// ↓実際のレスポンス加工のロジック----
+// or 'Asia/Tokyo'などが入る。
+$timezone = DateTimeZone::ASIA;
+$user = User::find(1);
+$user->deleted_at
+    // DateTimeZone|string $value
+    ->setTimezone($timezone)
+    ->format('Y-m-d H:i:s');
+```
+
+---
+
+---
+
+# MySQLの日時の取り扱いについて
+
+1. timestamp型
+2. datetime型
+
+---
+
+# サマータイムとは
+
+---
+
+[サマータイムの説明]
+
+---
+
+サマータイムがどう表現されているのか。についての説明
+
+---
+
+# サマータイムの影響を受ける処理について
 
 1. 指定時刻に起動する処理(cronはサマータイム対応済み)
 2. タイムスタンプから経過時間を計算する処理
@@ -311,7 +443,6 @@ TZ データベースは世界の政治的な変化によって年に数回ア�
 
 1. サマータイムでずれた時のインサートなどの日時の取り扱い
 2. タイムゾーン自体が政治的な問題でずれてしまった時の取り扱い
-3.
 
 ---
 
@@ -353,6 +484,8 @@ https://datatracker.ietf.org/doc/draft-ietf-sedate-datetime-extended/
 https://tc39.es/proposal-temporal/docs/strings.html#machine-readable-string-persistence-overview
 https://qiita.com/yamato225/items/676beef96efb8751e581
 https://www.casio.com/jp/watches/contents/daylight-saving/
+https://zenn.dev/mpyw/articles/laravel-datetimezone-best-practices
+https://dev.mysql.com/doc/refman/8.0/ja/datetime.html
 
 ---
 
