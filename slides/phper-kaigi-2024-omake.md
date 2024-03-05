@@ -253,7 +253,12 @@ https://dev.mysql.com/doc/refman/8.0/ja/datetime.html
 https://mysql.sql55.com/sql/mysql-now-curdate.php#:~:text=MySQL%20%E3%81%A7%E7%8F%BE%E5%9C%A8%E3%81%AE%E6%97%A5%E6%99%82%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF,%E6%96%87%E5%AD%97%E5%88%97%E3%81%A8%E3%81%97%E3%81%A6%E8%BF%94%E3%81%97%E3%81%BE%E3%81%99%E3%80%82
 https://tech.hajimari.inc/entry/2022/09/05/100000
 https://dev.mysql.com/doc/refman/8.0/ja/datetime.html
-
+https://www.cluemediator.com/how-to-identify-daylight-saving-time-in-php
+https://stackoverflow.com/questions/1646171/mysql-datetime-fields-and-daylight-savings-time-how-do-i-reference-the-extra
+https://stackoverflow.com/questions/45313886/laravel-carbon-not-factoring-in-daylight-savings-time
+https://joshtronic.com/2013/11/04/handle-daylight-savings-time/#:~:text=PHP%20does%20provide%20a%20way,are%20not%20in%20DST!'
+https://web.archive.org/web/20130905110602/http://unixhelp.ed.ac.uk/CGI/man-cgi?cron+8
+https://www.gnu.org/software/mcron/manual/mcron.pdf
 
 ---
 
