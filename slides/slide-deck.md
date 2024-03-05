@@ -16,7 +16,8 @@ marp: true
 
 ---
 
-[PHPの「歴史的な理由」ってなんだ！？](./php-conference-kansai-2024)
+- [PHPの「歴史的な理由」ってなんだ！？](./php-conference-kansai-2024)
+- [雰囲気実装を少し抜け出そう！RFCからPHPの実装までを考えるタイムゾーンとサマータイム！！！](./phper-kaigi-2024)
 
 ---
 
