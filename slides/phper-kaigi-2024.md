@@ -512,25 +512,29 @@ $user?->created_at->toIso8601String();
 
 ---
 
-# Carbonではなく、PHPの標準でタイムゾーンのサマータイムかどうかを判定する
+# ここからはPHP標準で戦う人向けのコンテンツ
 
-## その1
+---
+
+# Carbonではなく、PHPの標準でサマータイム周りの判定などを行う
+
+## その1: サマータイムかどうかを判定する
 
 ```php
 <?php
 
-if (date('I', time())) {
-    echo 'We are in DST!'
-} else {
-    echo 'We are not in DST!'
+function isDst() {
+    return date('I', time())
 }
+$is_dst = isDst();
+print_r($is_dst);
 ```
 
 ---
 
-# Carbonではなく、PHPの標準でタイムゾーンのサマータイムかどうかを判定する
+# Carbonではなく、PHPの標準でサマータイム周りの判定などを行う
 
-## その2
+## その2: サマータイムを含むタイムゾーンの情報を取得する
 
 ```php
 <?php
