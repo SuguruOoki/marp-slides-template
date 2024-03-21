@@ -142,8 +142,6 @@ $user?->deleted_at?->format('Y-m-d H:i:s');
 ---
 
 # タイムゾーンの雰囲気実装
-
-```php
 <?php
 
 $user = User::find(1);
@@ -296,6 +294,36 @@ $user?->created_at->toIso8601ZuluString();
 // JSTなどを取り扱う場合(すでにtimezoneは設定済み)
 $user?->created_at->toIso8601String();
 ```
+
+---
+
+# もし上記やらない場合はどうなるのか？
+
+---
+
+# もし上記やらない場合はどうなるのか？
+
+```php
+// やりがちな実装
+$user->created_at
+    // @var DateTimeZone|string $timezone
+    ->setTimezone('Asia/Tokyo')
+    ->format('Y-m-d H:i:s');
+```
+
+---
+
+# もし上記やらない場合はどうなるのか？
+
+```javascript
+// やりがちな実装 day.js
+const date = '2023-12-01 09:00:00'; // APIで取得
+const now = dayjs.utc(date).tz('Asia/Tokyo').format('YYYY-MM-DD hh:mm:ss'); // <- JSTがUTCとして扱われて9時間ずれてしまった・・・！
+```
+
+---
+
+# 9時間ずれる・・・！😭
 
 ---
 
