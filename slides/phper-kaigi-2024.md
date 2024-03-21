@@ -142,6 +142,8 @@ $user?->deleted_at?->format('Y-m-d H:i:s');
 ---
 
 # タイムゾーンの雰囲気実装
+
+```php
 <?php
 
 $user = User::find(1);
