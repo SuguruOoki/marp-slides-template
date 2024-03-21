@@ -320,7 +320,7 @@ $user->created_at
 ```javascript
 // やりがちな実装 day.js
 const date = '2023-12-01 09:00:00'; // APIで取得
-const now = dayjs.utc(date).tz('Asia/Tokyo').format('YYYY-MM-DD hh:mm:ss'); // <- JSTがUTCとして扱われて9時間ずれてしまった・・・！
+const now = dayjs.utc(date).tz('Asia/Tokyo').format('YYYY-MM-DD hh:mm:ss'); // JSTがUTCとして扱われて9時間ずれてしまった・・・！
 ```
 
 ---
