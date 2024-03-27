@@ -1,6 +1,6 @@
 ---
 title: コミュニティイベントのアンチパターン
-description: コミュニティのアンチパターン
+description: コミュニティのアンチパターンのイベントにおける登壇
 class: invert
 _class:
   - invert
